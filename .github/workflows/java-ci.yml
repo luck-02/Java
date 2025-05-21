@@ -16,8 +16,8 @@ jobs:
 
       - run: mkdir -p bin
 
-      - run: javac -d bin src/*.java src/model/*.java test/*.java test/model/*.java
-
-      - run: curl -LO https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar
+      - run: |
+          curl -LO https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar
+          javac -cp junit-platform-console-standalone-1.10.0.jar -d bin src/*.java src/model/*.java test/*.java test/model/*.java
 
       - run: java -jar junit-platform-console-standalone-1.10.0.jar --class-path bin --scan-class-path
