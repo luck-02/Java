@@ -1,0 +1,7 @@
+name: Java CI - Manual Compilation on: push: branches: [ main ] pull_request: branches: [ main ] jobs: build-and-test: runs-on: ubuntu-latest steps: - name: 📥 Checkout code uses: actions/checkout@v3 - name: ☕ Setup Java uses: 
+        actions/setup-java@v3 with:
+          distribution: 'temurin' java-version: '17' - name: 📂 Create bin directory run: mkdir -p bin - name: 🧪 Compile Java source files run: javac -d bin src/*.java src/model/*.java test/*.java test/model/*.java - name: ⬇️ 
+      Download JUnit Platform Console Launcher
+        run: curl -LO https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar - name: ✅ Run JUnit tests run: | java -jar 
+          junit-platform-console-standalone-1.10.0.jar \
+            --class-path bin \ --scan-class-path
